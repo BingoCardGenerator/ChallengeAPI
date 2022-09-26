@@ -3,11 +3,10 @@ version: 2.1
 jobs:
   build-and-test:
     docker:
-      - image: microsoft/dotnet:latest
+      - image: mono:latest
     steps:
       - checkout
       - run:
-          # Update this line with the directory that contains your tests project file
           working_directory: //ChallengeApi/Tests
           name: Run tests
           command: |

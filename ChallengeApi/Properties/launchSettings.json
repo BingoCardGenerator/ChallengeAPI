@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ChallangeApi": {
+    "ChallengeApi": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

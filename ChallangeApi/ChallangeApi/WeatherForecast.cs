@@ -1,4 +1,4 @@
-namespace ChallangeApi
+namespace ChallengeApi
 {
     public class WeatherForecast
     {

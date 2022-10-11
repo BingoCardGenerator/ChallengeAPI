@@ -9,7 +9,7 @@
         {
         }
 
-        public DbSet<ChallengeModel> Challenges { get; set; }
+        public DbSet<ChallengeModel> Challenges { get; set; } = null!;
 
     }
 }

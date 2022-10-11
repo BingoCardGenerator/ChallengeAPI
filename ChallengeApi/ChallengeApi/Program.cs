@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using ChallengeApi.DbContext;
-using Microsoft.Extensions.Configuration;
+using ChallengeApi.interfaces;
+using ChallengeApi.Services;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Adds a single instance of ChallengeService to the API.
+builder.Services.AddTransient<IChallengeService, ChallengeService>();
 builder.Services.AddDbContext<ChallengeContext>(options => 
    options.UseSqlServer(builder.Configuration.GetConnectionString("ChallengeConnStr")
         )

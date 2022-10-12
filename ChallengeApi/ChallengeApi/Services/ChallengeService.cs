@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChallengeApi.Services
 {
+    /// <summary>
+    /// A server that handels all the challenges releated request.
+    /// </summary>
     public class ChallengeService : IChallengeService
     {
         private readonly ChallengeContext _context;

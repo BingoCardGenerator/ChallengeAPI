@@ -1,9 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Buffers.Text;
+using System;
 
 namespace ChallengeApi.Controllers
 {
+
+    ///<summary>
+    ///Challenge API base controller with methods to generate action results.
+    ///</summary>
     public class ChallengeApiController : ControllerBase
     {
+        /// <summary>
+        /// Generates an action result based on a service response with data.
+        /// </summary>
+        /// <typeparam name="T"> The type of data that is contained in the Actionresult</typeparam>
+        /// <param name="serviceresponse"> The response that the serivice gave.</param>
+        /// <returns>
+        /// The generated Actionresult and status code.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         protected IActionResult GetActionResult<T>(ServiceResponse<T> serviceresponse) where T : class
         {
             if (serviceresponse is null)
@@ -20,6 +36,15 @@ namespace ChallengeApi.Controllers
             };
         }
 
+        /// <summary>
+        ///Generates an action result based on a service response without data.
+        /// </summary>
+        /// <param name="serviceresponse">The response that the serivice gave.</param>
+        /// <returns>
+        /// The generated Actionresult and status code.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         protected IActionResult GetActionResult(ServiceResponse serviceresponse)
         {
             if (serviceresponse is null)

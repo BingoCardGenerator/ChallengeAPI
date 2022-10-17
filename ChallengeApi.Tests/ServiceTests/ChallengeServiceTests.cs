@@ -16,12 +16,6 @@
             _challengeService = new ChallengeService(_challengeContext);
         }
 
-        //public void Dispose()
-        //{
-        //    _challengeContext.Database.EnsureDeleted();
-        //    GC.SuppressFinalize(this);
-        //}
-
         [Fact]
         public async Task GetChallenges_WithPopulatedTable_ShouldReturnAllChallenges()
         {
@@ -40,6 +34,23 @@
                 .Should()
                 .NotBeEmpty()
                 .And.HaveCount(3);
+
+        }
+        [Fact]
+        public async Task GetChallenges_WithUnPopulatedTable_ShouldReturnEmpty()
+        {
+            //Arragne
+            await _challengeService.CreateChallenge(new ChallengeForCreationModel());
+
+            //Act
+            var results = await _challengeService.GetAllChallenges();
+            var resultsData = results.Data ?? new List<ChallengeModel>();
+
+
+            //Assert
+            resultsData
+                .Should()
+                .BeEmpty();
 
         }
     }

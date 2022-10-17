@@ -47,7 +47,7 @@ jobs:
     - name: SonarCloud Begin
       run: | 
         dotnet tool install --global dotnet-sonarscanner
-        dotnet sonarscanner begin /o:BingoCardGenerator /k:BingoCardGenerator_ChallengeApi /d:sonar.login=${{ secrets.SONAR_TOKEN }} /s:$GITHUB_WORKSPACE/ChallengeApi/SonarQube.Analysis.xml
+        dotnet sonarscanner begin /o:bingocardgenerator /k:BingoCardGenerator_ChallengeApi /d:sonar.login=${{ secrets.SONAR_TOKEN }} /s:$GITHUB_WORKSPACE/ChallengeApi/SonarQube.Analysis.xml
         
     - name: Build
       run: dotnet build --no-restore

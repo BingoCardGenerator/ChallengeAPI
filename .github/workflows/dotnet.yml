@@ -2,7 +2,6 @@ name: .NET Core CI
 
 on:
   push:
-    branches: [ main, Develop ]
     paths-ignore:
       - '**.gitignore'
       - '**/README.md'
@@ -11,7 +10,7 @@ on:
       - '**/stylecop.ruleset'
       - '**/stylecop.json'
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches: [ "main", "Develop" ]
     paths-ignore:
       - '**.gitignore'
       - '**/README.md'
@@ -20,18 +19,23 @@ on:
       - '**/stylecop.ruleset'
       - '**/stylecop.json'
 jobs:
-  build:
+  build_and_test:
     runs-on: ${{ matrix.os }} 
+
     defaults:
       run:
         shell: bash
-        working-directory: ./ChallengeApi
+        working-directory: ChallengeAPI
     strategy: 
       matrix: 
-        os: [windows-latest]
+        os: [ubuntu-latest]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -40,8 +44,18 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
 
+    - name: SonarCloud Begin
+      run: | 
+        dotnet tool install --global dotnet-sonarscanner
+        dotnet sonarscanner begin /o:ChallengeAPI /k:BingoCardGenerator_ChallengeAPI /d:sonar.login=${{ secrets.SONAR_TOKEN }} /s:$GITHUB_WORKSPACE/menu-api/SonarQube.Analysis.xml
+        
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --no-restore
 
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --logger:trx --results-directory ./TestResults --settings coverlet.runsettings --verbosity normal --no-restore
+    
+    - name: SonarCloud End
+      run: dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -18,11 +18,11 @@ namespace ChallengeApi.Services
             _context = context;
         }
 
-        public async Task<ServiceResponse<IReadOnlyList<ChallengeModel>>> GetAllChallenges()
+        public async Task<ServiceResponse<IEnumerable<ChallengeModel>>> GetAllChallenges()
         {
             var challenges = (await _context.Challenges.ToListAsync());
 
-            return new ServiceResponse<IReadOnlyList<ChallengeModel>>
+            return new ServiceResponse<IEnumerable<ChallengeModel>>
             {
                 Data = challenges,
                 SuccesFull = challenges is not null,

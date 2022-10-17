@@ -1,0 +1,10 @@
+global using Xunit;
+global using FluentAssertions;
+global using FluentAssertions.Collections;
+global using ChallengeApi.Controllers;
+global using ChallengeApi.DbContext;
+global using ChallengeApi.interfaces;
+global using ChallengeApi.Models;
+global using ChallengeApi.Services;
+global using Microsoft.EntityFrameworkCore;
+global using System.Threading.Tasks;

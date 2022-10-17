@@ -35,6 +35,17 @@
                 .NotBeEmpty()
                 .And.HaveCount(3);
 
+            results.Message
+                .Should()
+                .BeEquivalentTo("200: Challenges found.");
+
+            results.ServiceResultCode
+                .Should()
+                .Be(ServiceResultCode.Ok);
+            results.SuccesFull
+                .Should()
+                .BeTrue();
+
         }
         [Fact]
         public async Task GetChallenges_WithUnPopulatedTable_ShouldReturnEmpty()
@@ -52,22 +63,55 @@
                 .Should()
                 .BeEmpty();
 
+            results.Message
+                .Should()
+                .BeEquivalentTo("404: No challenges found.");
+
+            results.ServiceResultCode
+                .Should()
+                .Be(ServiceResultCode.NotFound);
+
+            results.SuccesFull
+                .Should()
+                .BeFalse();
+
         }
 
         [Fact]
-        public async Task GetChallenges_WithEmptyTable_ShouldReturnEmpty()
+        public async Task CreateChallenge_WithName_ShouldReturnOk()
         {
-            //Arragne
-
             //Act
-            var results = await _challengeService.GetAllChallenges();
-            var resultsData = results.Data;
-
+            var result = await _challengeService.CreateChallenge(new ChallengeForCreationModel { Name = "Test 1"});
 
             //Assert
-            resultsData
+            result.SuccesFull
                 .Should()
-                .BeEmpty();
+                .BeTrue();
+            result.ServiceResultCode
+                .Should()
+                .Be(ServiceResultCode.Ok);
+            result.Message
+                .Should()
+                .BeEquivalentTo("200: Challenge succesfully added.");
+
+        }
+
+        [Fact]
+        public async Task CreateChallenge_WithoutName_ShouldReturnBadRequest()
+        {
+            //Act
+            var result = await _challengeService.CreateChallenge(new ChallengeForCreationModel());
+
+            //Assert
+            result.SuccesFull
+                .Should()
+                .BeFalse();
+            result.ServiceResultCode
+                .Should()
+                .Be(ServiceResultCode.BadRequest);
+            result.Message
+                .Should()
+                .BeEquivalentTo("400: Challenge name cannot be empty.");
 
         }
     }

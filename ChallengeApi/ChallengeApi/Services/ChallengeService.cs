@@ -22,12 +22,23 @@ namespace ChallengeApi.Services
         {
             var challenges = (await _context.Challenges.ToListAsync());
 
-            return new ServiceResponse<IEnumerable<ChallengeModel>>
+            if(challenges == null)
+            {
+                return new ServiceResponse<IEnumerable<ChallengeModel>>
+                {
+                    Data = challenges,
+                    SuccesFull = false,
+                    ServiceResultCode = ServiceResultCode.NotFound,
+                    Message = "404: No challenges found."
+                };
+            }
+
+            else return new ServiceResponse<IEnumerable<ChallengeModel>>
             {
                 Data = challenges,
-                SuccesFull = challenges is not null,
-                ServiceResultCode = challenges is not null ? ServiceResultCode.Ok : ServiceResultCode.NotFound,
-                Message = challenges is not null ? "200: Messages found." : "404: No challenges found."
+                SuccesFull = challenges.Count > 0,
+                ServiceResultCode = challenges.Count > 0 ? ServiceResultCode.Ok : ServiceResultCode.NotFound,
+                Message = challenges.Count > 0 ? "200: Challenges found." : "404: No challenges found."
             };
         }
 

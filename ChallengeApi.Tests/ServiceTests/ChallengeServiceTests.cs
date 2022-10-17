@@ -53,5 +53,22 @@
                 .BeEmpty();
 
         }
+
+        [Fact]
+        public async Task GetChallenges_WithEmptyTable_ShouldReturnEmpty()
+        {
+            //Arragne
+
+            //Act
+            var results = await _challengeService.GetAllChallenges();
+            var resultsData = results.Data;
+
+
+            //Assert
+            resultsData
+                .Should()
+                .BeEmpty();
+
+        }
     }
 }

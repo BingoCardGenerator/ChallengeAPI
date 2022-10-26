@@ -13,7 +13,7 @@ namespace ChallengeApi.interfaces
         /// <returns>
         /// A list of all challenges.
         /// </returns>
-        Task<ServiceResponse<IReadOnlyList<ChallengeModel>>> GetAllChallenges();
+        Task<ServiceResponse<IEnumerable<ChallengeModel>>> GetAllChallenges();
 
         /// <summary>
         /// Adds a new challenge to the database.

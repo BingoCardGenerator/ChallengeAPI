@@ -6,7 +6,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
-var MyAllowSpecificOrigins = "_MyAllowSpecificOrigins";
 
 // Add services to the container.
 
@@ -24,10 +23,10 @@ builder.Services.AddDbContext<ChallengeContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddDefaultPolicy(
     builder =>
     {
-        builder.WithOrigins("http://localhost");
+        builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost");
     });
 });
 

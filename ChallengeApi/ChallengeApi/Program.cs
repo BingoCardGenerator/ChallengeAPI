@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 // Adds a single instance of ChallengeService to the API.
 builder.Services.AddTransient<IChallengeService, ChallengeService>();
 builder.Services.AddDbContext<ChallengeContext>(options => 
-   options.UseSqlServer(builder.Configuration.GetConnectionString("ChallengeConnStr")
+   options.UseSqlServer(builder.Configuration.GetConnectionString("BingoConnStr")
         )
     );
 

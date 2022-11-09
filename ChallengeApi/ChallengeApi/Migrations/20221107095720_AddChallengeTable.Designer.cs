@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChallengeApi.Migrations
 {
     [DbContext(typeof(ChallengeContext))]
-    [Migration("20221011071912_AddChallengeTable")]
+    [Migration("20221107095720_AddChallengeTable")]
     partial class AddChallengeTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -13,7 +13,7 @@
         }
 
         /// <summary>
-        /// The table in wich all challegnes are stored.
+        /// The table in wich all challenges are stored.
         /// </summary>
         public DbSet<ChallengeModel> Challenges { get; set; } = null!;
 

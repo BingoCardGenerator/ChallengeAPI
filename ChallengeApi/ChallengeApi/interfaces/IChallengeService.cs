@@ -18,7 +18,7 @@ namespace ChallengeApi.interfaces
         /// <summary>
         /// Adds a new challenge to the database.
         /// </summary>
-        /// <param name="newchallenge"> The challange that has to be created.</param>
+        /// <param name="newchallenge"> The challenge that has to be created.</param>
         Task<ServiceResponse> CreateChallenge(ChallengeForCreationModel newchallenge);
     }
 }

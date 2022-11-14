@@ -20,7 +20,7 @@ namespace ChallengeApi.Services
 
         public async Task<ServiceResponse<IEnumerable<ChallengeModel>>> GetAllChallenges()
         {
-            var challenges = (await _context.Challenges.ToListAsync());
+            var challenges = await _context.Challenges.ToListAsync();
 
             if(challenges == null)
             {
@@ -63,6 +63,35 @@ namespace ChallengeApi.Services
                 SuccesFull = String.IsNullOrEmpty(message),
                 ServiceResultCode = String.IsNullOrEmpty(message) ? ServiceResultCode.Ok : ServiceResultCode.BadRequest,
                 Message = String.IsNullOrEmpty(message) ? "200: Challenge succesfully added." : $"400: {message}."
+            };
+        }
+
+        public async Task<ServiceResponse<IEnumerable<Guid>>>GetAllChallengeIds()
+        {
+            var challenges = await _context.Challenges.ToListAsync();
+            var ids = new List<Guid>();
+            
+            if(challenges == null)
+            {
+                return new ServiceResponse<IEnumerable<Guid>>
+                {
+                    Data = ids,
+                    SuccesFull = false,
+                    ServiceResultCode = ServiceResultCode.NotFound,
+                    Message = "404: No challenges found."
+                };
+            }
+            foreach(var challenge in challenges)
+            {
+                ids.Add(challenge.Id);
+            }
+
+            return new ServiceResponse<IEnumerable<Guid>>
+            {
+                Data = ids,
+                SuccesFull = true,
+                ServiceResultCode = ServiceResultCode.Ok,
+                Message = "200: Succesfully returned all Ids."
             };
         }
     }

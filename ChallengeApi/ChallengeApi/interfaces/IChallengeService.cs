@@ -20,5 +20,11 @@ namespace ChallengeApi.interfaces
         /// </summary>
         /// <param name="newchallenge"> The challenge that has to be created.</param>
         Task<ServiceResponse> CreateChallenge(ChallengeForCreationModel newchallenge);
+
+        /// <summary>
+        /// Gets a list of all challenge ids.
+        /// </summary>
+        /// <returns>A list of challenge ids.</returns>
+        Task<ServiceResponse<IEnumerable<Guid>>> GetAllChallengeIds();
     }
 }

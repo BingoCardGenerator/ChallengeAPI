@@ -34,7 +34,7 @@ namespace ChallengeApi.Controllers
         /// </returns>
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IReadOnlyList<ChallengeModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet]
+        [HttpGet("/challenges")]
         public async Task<IActionResult> GetAllChallenges()
         {
             return GetActionResult(await _challengeService.GetAllChallenges());
@@ -55,6 +55,22 @@ namespace ChallengeApi.Controllers
         {
             var result = await _challengeService.CreateChallenge(forCreationModel);
 
+            return GetActionResult(result);
+        }
+
+        /// <summary>
+        /// API endpoint to get all challenge ids.
+        /// </summary>
+        /// <returns>
+        /// 200: if the challenge ids were succesfully gotten.
+        /// 404: if no challenge ids were found.
+        /// </returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("/challenges/ids")]
+        public async Task<IActionResult> GetAllIds()
+        {
+            var result = await _challengeService.GetAllChallengeIds();
             return GetActionResult(result);
         }
     }

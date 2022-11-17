@@ -111,7 +111,7 @@
                 .Be(ServiceResultCode.BadRequest);
             result.Message
                 .Should()
-                .BeEquivalentTo("400: Challenge name cannot be empty.");
+                .BeEquivalentTo("400: Name can not be Empty.");
 
         }
     }

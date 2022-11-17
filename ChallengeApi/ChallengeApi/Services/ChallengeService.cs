@@ -44,14 +44,9 @@ namespace ChallengeApi.Services
 
         public async Task<ServiceResponse> CreateChallenge(ChallengeForCreationModel newchallenge)
         {
-            var message = "";
+            var validstr = ValidateNewChallenge(newchallenge);
 
-            if (newchallenge.Name == String.Empty)
-                message += "Challenge name cannot be empty";
-
-            // new rules can for name (or challenge) can be added here later.
-
-            if (string.IsNullOrEmpty(message)) 
+            if (string.IsNullOrEmpty(validstr)) 
             { 
                 ChallengeModel newChallenge = new ChallengeModel { Name = newchallenge.Name };
                 await _context.Challenges.AddAsync(newChallenge);
@@ -60,9 +55,9 @@ namespace ChallengeApi.Services
 
             return new ServiceResponse
             {
-                SuccesFull = String.IsNullOrEmpty(message),
-                ServiceResultCode = String.IsNullOrEmpty(message) ? ServiceResultCode.Ok : ServiceResultCode.BadRequest,
-                Message = String.IsNullOrEmpty(message) ? "200: Challenge succesfully added." : $"400: {message}."
+                SuccesFull = String.IsNullOrEmpty(validstr),
+                ServiceResultCode = String.IsNullOrEmpty(validstr) ? ServiceResultCode.Ok : ServiceResultCode.BadRequest,
+                Message = String.IsNullOrEmpty(validstr) ? "200: Challenge succesfully added." : $"400: {validstr}"
             };
         }
 
@@ -93,6 +88,29 @@ namespace ChallengeApi.Services
                 ServiceResultCode = ServiceResultCode.Ok,
                 Message = "200: Succesfully returned all Ids."
             };
+        }
+
+        /// <summary>
+        /// Checks if a new challenge conforms to all rules.
+        /// </summary>
+        /// <param name="challengeModel">The new challenge that has to be validated.</param>
+        /// <returns>A message if anything is wrong</returns>
+        private string ValidateNewChallenge(ChallengeForCreationModel challengeModel)
+        {
+            if (challengeModel == null) return "Challenge data is empty.";
+
+            if(ChallengeNameEmpty(challengeModel.Name)) return "Name can not be Empty.";
+
+            return "";
+        }
+
+        /// <summary>
+        /// Checks if the challenge name is empty.
+        /// </summary>
+        /// <param name="name">The name that has to be checked.</param>
+        private bool ChallengeNameEmpty(string name)
+        {
+            return String.IsNullOrEmpty(name);
         }
     }
 }

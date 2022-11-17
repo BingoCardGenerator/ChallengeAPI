@@ -57,7 +57,7 @@ namespace ChallengeApi.Services
             {
                 SuccesFull = String.IsNullOrEmpty(validstr),
                 ServiceResultCode = String.IsNullOrEmpty(validstr) ? ServiceResultCode.Ok : ServiceResultCode.BadRequest,
-                Message = String.IsNullOrEmpty(validstr) ? "200: Challenge succesfully added." : $"400: {validstr}."
+                Message = String.IsNullOrEmpty(validstr) ? "200: Challenge succesfully added." : $"400: {validstr}"
             };
         }
 
@@ -99,7 +99,7 @@ namespace ChallengeApi.Services
         {
             if (challengeModel == null) return "Challenge data is empty.";
 
-            if(!ChallengeNameEmpty(challengeModel.Name)) return "Name can not be Empty.";
+            if(ChallengeNameEmpty(challengeModel.Name)) return "Name can not be Empty.";
 
             return "";
         }

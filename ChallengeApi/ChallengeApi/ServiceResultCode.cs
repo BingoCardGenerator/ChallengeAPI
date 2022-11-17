@@ -18,6 +18,11 @@
         /// <summary>
         /// The requested data could not be retrieved.
         /// </summary>
-        NotFound = 401
+        NotFound = 401,
+
+        /// <summary>
+        /// The API understands the data send to it but cannot excecute the result. 
+        /// </summary>
+        UnproccesableEnity = 422,
     }
 }

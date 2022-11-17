@@ -13,7 +13,7 @@ namespace ChallengeApi.Controllers
         /// <summary>
         /// Generates an action result based on a service response with data.
         /// </summary>
-        /// <typeparam name="T"> The type of data that is contained in the Actionresult</typeparam>
+        /// <typeparam name="T"> The type of data that is contained in the Actionresult.</typeparam>
         /// <param name="serviceresponse"> The response that the serivice gave.</param>
         /// <returns>
         /// The generated Actionresult and status code.

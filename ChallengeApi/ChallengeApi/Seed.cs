@@ -3,6 +3,9 @@ using ChallengeApi.Models;
 
 namespace ChallengeApi
 {
+    /// <summary>
+    /// This class seeds an empty database with some data.
+    /// </summary>
     public class Seed
     {
         private readonly ChallengeContext _context;

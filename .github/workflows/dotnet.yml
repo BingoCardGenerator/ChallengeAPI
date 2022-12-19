@@ -55,7 +55,7 @@ jobs:
     - name: Test
       run: dotnet test --logger:trx --results-directory ./TestResults --settings coverlet.runsettings --verbosity normal --no-restore
       
-      - name: Login To Docker Hub
+    - name: Login To Docker Hub
       uses: docker/login-action@v2
       with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}

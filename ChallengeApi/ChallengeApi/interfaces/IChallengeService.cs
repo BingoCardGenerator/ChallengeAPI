@@ -26,5 +26,10 @@ namespace ChallengeApi.interfaces
         /// </summary>
         /// <returns>A list of challenge ids.</returns>
         Task<ServiceResponse<IEnumerable<Guid>>> GetAllChallengeIds();
+
+        /// <summary>
+        /// Get the amount of challenges in the database.
+        /// </summary>
+        Task<ServiceResponse<String>> CountChallenges();
     }
 }

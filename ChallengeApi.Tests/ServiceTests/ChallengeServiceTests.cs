@@ -1,4 +1,4 @@
-﻿namespace ChallengeApi.Tests.ServiceTests
+﻿    namespace ChallengeApi.Tests.ServiceTests
 {
     public class ChallengeServiceTests
     {
@@ -113,6 +113,51 @@
                 .Should()
                 .BeEquivalentTo("400: Name can not be Empty.");
 
+        }
+
+        [Fact]
+        public async Task CountChallenge_WithPopulatedTable_ShouldReturnCorrectCount()
+        {
+            //Arange
+            await _challengeContext.Challenges.AddRangeAsync(
+                new ChallengeModel { Id = Guid.NewGuid(), Name = "Test Challenge 1" },
+                new ChallengeModel { Id = Guid.NewGuid(), Name = "Test Challenge 2" },
+                new ChallengeModel { Id = Guid.NewGuid(), Name = "Test Challenge 3" }
+            );
+            await _challengeContext.SaveChangesAsync();
+
+            //Act
+            var result = await _challengeService.CountChallenges();
+
+            //Assert
+            result.SuccesFull
+                .Should()
+                .Be(true);
+            result.ServiceResultCode
+                .Should()
+                .Be(ServiceResultCode.Ok);
+            result.Data
+                .Should()
+                .Be("3");
+
+        }
+
+        [Fact]
+        public async Task CountChallenge_WithUnpopulatedTable_ShouldReturnZero()
+        {
+            //Act
+            var result = await _challengeService.CountChallenges();
+
+            //Assert
+            result.SuccesFull
+                .Should()
+                .Be(true);
+            result.ServiceResultCode
+                .Should()
+                .Be(ServiceResultCode.Ok);
+            result.Data
+                .Should()
+                .Be("0");
         }
     }
 }

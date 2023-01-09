@@ -73,5 +73,19 @@ namespace ChallengeApi.Controllers
             var result = await _challengeService.GetAllChallengeIds();
             return GetActionResult(result);
         }
+
+        /// <summary>
+        /// API endpoint to get the amount of challenges in the database.
+        /// </summary>
+        /// <returns>
+        /// 200: with the amount of challenges in the database.
+        /// </returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("/count")]
+        public async Task<IActionResult> GetChallengeCount()
+        {
+            var result = await _challengeService.CountChallenges();
+            return GetActionResult(result);
+        }
     }
 }

@@ -90,6 +90,19 @@ namespace ChallengeApi.Services
             };
         }
 
+        public async Task<ServiceResponse<String>> CountChallenges()
+        {
+            var challenges = await _context.Challenges.ToListAsync();
+
+            return new ServiceResponse<String>
+            {
+                Data = challenges.Count().ToString(),
+                SuccesFull = true,
+                ServiceResultCode = ServiceResultCode.Ok,
+                Message = "200: Succesfully returnd challenge amount."
+            };
+        }
+
         /// <summary>
         /// Checks if a new challenge conforms to all rules.
         /// </summary>
